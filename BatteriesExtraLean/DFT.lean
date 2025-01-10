@@ -147,7 +147,7 @@ def list_direct_succ_list
   (g : Graph Node)
   (xs : List Node) :
   List Node :=
-  (xs.map (fun (x : Node) => direct_succ_list g x)).join
+  (xs.map (fun (x : Node) => direct_succ_list g x)).flatten
 
 
 /--
@@ -221,7 +221,7 @@ def Graph.nodes_of
   [DecidableEq Node]
   (g : Graph Node) :
   List Node :=
-  (g.map Prod.fst) ∪ (g.map Prod.snd).join
+  (g.map Prod.fst) ∪ (g.map Prod.snd).flatten
 
 
 lemma not_mem_imp_no_direct_succ
@@ -269,7 +269,7 @@ lemma List.erase_diff_len_lt_diff_len
 
     have s3 : 0 < (l1.diff l2).length := List.length_pos_of_mem s1
 
-    exact Nat.pred_lt' s3
+    exact Nat.pred_lt_of_lt s3
 
 
 /--
